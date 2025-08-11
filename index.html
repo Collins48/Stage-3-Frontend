@@ -1,10 +1,53 @@
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Profile Card</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GitHub Profile Card</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    
+  <main class="container">
+    <section id="profile-card" class="card" aria-live="polite">
+      <!-- Dynamic content from profile.json will be injected here -->
+    </section>
+  </main>
+
+  <script>
+    // Load profile data
+    fetch('data/profile.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('profile-card').innerHTML = `
+          <div class="banner">Design + Code</div>
+          <div class="profile-header">
+            <img src="${data.avatar_url}" alt="${data.name}" class="avatar" />
+            <button class="edit-btn">Edit</button>
+          </div>
+          <div class="profile-info">
+            <h2 class="name">${data.name}</h2>
+            <p class="username">@${data.username}</p>
+            <p class="bio">${data.bio}</p>
+          </div>
+          <div class="stats">
+            <div><strong>${data.followers}</strong> Followers</div>
+            <div><strong>${data.following}</strong> Following</div>
+          </div>
+          <div class="links">
+            <a href="${data.website}" target="_blank" class="website">
+              <img src="assets/link-icon.svg" alt=""> ${data.website}
+            </a>
+            <p class="location">
+              <img src="assets/location-icon.svg" alt=""> ${data.location}
+            </p>
+          </div>
+        `;
+      });
+  </script>
 </body>
 </html>
